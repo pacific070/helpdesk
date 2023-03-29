@@ -1,0 +1,304 @@
+{% extends 'MainApp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card mb-4" style="margin-bottom: 4rem !important;"> 
+    <h5 class="card-header">Raise A Ticket</h5>
+    <hr class="my-0" />
+    <div class="card-body">
+        <form name="issue_form" id="issue_form" class="issue_form" onsubmit="return false;" novalidate>
+            <div class="row">
+                <div id="error_msg"></div>
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="name">Full Name<i class='text-danger'>*</i></label>
+                    <input type="text" class="form-control caps" id="name" name="name" placeholder="Enter Full Name"
+                        required />
+                    <div class="invalid-feedback">Please enter name.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="email">Email <small class="text-lowercase">(optional)</small></label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                    <div class="invalid-feedback">Please enter valid email.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phone">Phone<i class='text-danger'>*</i></label>
+                    <input type="text" id="phone" name="phone" class="form-control phone-mask" placeholder="Enter Phone"
+                    pattern="[0-9]{4}[0-9]{3}[0-9]{3}" required />
+                    <div class="invalid-feedback">Please enter valid phone number.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="designation">Designation<i class='text-danger'>*</i></label>
+                    <select name="designation" id="designation" class="select2 form-select" required>
+                        <option selected disabled value="">Select Designation</option>
+                        <option value="Tco">TCO</option>
+                        <option value="Field Attendant">Field Attendant</option>
+                        <option value="Junior Assistant">Junior Assistant</option>
+                        <option value="Junior Officer">Junior Officer</option>
+                        <option value="Junior Manager">Junior Manager</option>
+                        <option value="Executive Trainee">Executive Trainee</option>
+                        <option value="Assistant Manager">Assistant Manager</option>
+                        <option value="Deputy Manager">Deputy Manager</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Senior Manager">Senior Manager</option>
+                        <option value="Agm">AGM</option>
+                        <option value="Dgm">DGM</option>
+                        <option value="Gm">GM</option>
+                        <option value="Cgm">CGM</option>
+                        <option value="Ed">ED</option>
+                    </select>
+                    <div class="invalid-feedback">Please select designation.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="organization">Organization<i class='text-danger'>*</i></label>
+                    <select name="organization" id="organization" class="select2 form-select" required>
+                        <option selected disabled value="">Select Organization</option>
+                        <option value="Nsl">NSL</option>
+                        <option value="Mecon">Mecon</option>
+                        <option value="Other">Other</option>
+                        
+                    </select>
+                    <div class="invalid-feedback">Please select organization.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="issue_type" class="form-label">Issue Type<i class='text-danger'>*</i></label>
+                    <select name="issue_type" id="issue_type" class="select2 form-select" required>
+                        <option selected disabled value="">Select Issue Type</option>
+                        <option value="Computer">Computer</option>
+                        <option value="Email">Email</option>
+                        <option value="Network">Network</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Software">Software</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="invalid-feedback">Please select issue type.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="location">Issue Description<i class='text-danger'>*</i></label>
+                    <textarea class="form-control" id="description" placeholder="Enter Issue Description"
+                        name="description" rows="1" required></textarea>
+                    <div class="invalid-feedback">Please enter description.</div>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label class="form-label" for="location">Location<i class='text-danger'>*</i></label>
+                    <select name="location" id="location" class="select2 form-select" required>
+                        <option selected disabled value="">Select Location</option>
+                        <option value="Rmhs_Aso Building">RMHS_ASO BUILDING</option>
+                        <option value="Coke Oven_Cdcp Boiler_By Product_Aso Building">COKE OVEN_CDCP BOILER_BY PRODUCT_ASO BUILDING</option>
+                        <option value="Sinter Plant_Aso Building">SINTER PLANT_ASO BUILDING</option>
+                        <option value="Power & Blowing Station (Pbs)_Blast Furnace Aso Building">POWER & BLOWING STATION (PBS)_BLAST FURNACE ASO BUILDING</option>
+                        <option value="Sms_Oxygen_Aso Building">SMS_OXYGEN_ASO BUILDING</option>
+                        <option value="Thin Slab Caster & Hot Strip Mill(Tsc&Hsm)_Central R&Cl-Aso Building">THIN SLAB CASTER & HOT STRIP MILL(TSC&HSM)_CENTRAL R&CL-ASO BUILDING</option>
+                        <option value="Cmos_Aso Building">CMOS_ASO BUILDING</option>
+                        <option value="Old Project Office A-Block">OLD PROJECT OFFICE A-BLOCK</option>
+                        <option value="Old Project Office B-Block">OLD PROJECT OFFICE B-BLOCK</option>
+                        <option value="Old Project Office C-Block">OLD PROJECT OFFICE C-BLOCK</option>
+                        <option value="D-Block">D-BLOCK</option>
+                        <option value="E-Block">E-BLOCK</option>
+                        <option value="Mrss">MRSS</option>
+                        <option value="Fire Station">FIRE STATION</option>
+                        <option value="Telecom">TELECOM</option>
+                        <option value="Sinter Plant Admin Building (Pkg-04)">SINTER PLANT ADMIN BUILDING (PKG-04)</option>
+                        <option value="Blast Furnace Admin Building (Pkg-05)">BLAST FURNACE ADMIN BUILDING (PKG-05)</option>
+                        <option value="Ldcp Admin Building (Pkg-08)">LDCP ADMIN BUILDING (PKG-08)</option>
+                        <option value="Sms Admin Building (Pkg-06)">SMS ADMIN BUILDING (PKG-06)</option>
+                        <option value="Tsc&Hsm Admin Building (Pkg-07)">TSC&HSM ADMIN BUILDING (PKG-07)</option>
+                        <option value="Oxygen Plant Admin Building (Pkg-09)">OXYGEN PLANT ADMIN BUILDING (PKG-09)</option>
+                        <option value="Coke Oven Admin Building (Pkg-02)">COKE OVEN ADMIN BUILDING (PKG-02)</option>
+                        <option value="By Product Admin Building (Pkg-03)">BY PRODUCT ADMIN BUILDING (PKG-03)</option>
+                        <option value="Rmhs Admin Building (Pkg-01)">RMHS ADMIN BUILDING (PKG-01)</option>
+                        <option value="Pbs Admin Building (Pkg-10)">PBS ADMIN BUILDING (PKG-10)</option>
+                        
+                    </select>
+                    <div class="invalid-feedback">Please Select location.</div>
+                </div>
+
+                <div class="card-title d-flex align-items-start justify-content-between">
+                    <i class='text-danger'>* is Manadatory Field</i>
+                </div>
+            </div>
+
+            <center>
+                <button type="submit" class="btn btn-primary w-50 w-md-100">Submit</button>
+            </center>
+        </form>
+
+    </div>
+    <!-- /Account -->
+</div>
+{% endblock content %}
+
+{% block customjs %}
+<script>
+
+    const form = document.getElementById('issue_form')
+    form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        event.stopPropagation()
+        form.classList.add('was-validated')
+        validateForm()
+    }, false)
+
+    function createErrorAlert(msg) {
+        var alet = document.createElement('div');
+        alet.className = 'alert alert-danger alert-dismissible';
+        alet.id = 'alert_error_msg';
+        alet.setAttribute('role', 'alert');
+        alet.innerHTML = msg;
+        var closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'btn-close';
+        closeButton.setAttribute('data-bs-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'alert');
+        alet.appendChild(closeButton);
+        document.getElementById('error_msg').appendChild(alet);
+        setTimeout(() => alet.remove(), 2500);
+    }
+
+    function createModal(ticket_number) {
+        const existmodal = document.getElementById('ticket_modal')
+        if (existmodal) {
+            existmodal.remove()
+        }
+        var modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'ticket_modal';
+        modal.setAttribute('data-bs-backdrop', 'static');
+        modal.setAttribute('data-bs-keyboard', 'false');
+
+        var modalDialog = document.createElement('div');
+        modalDialog.className = 'modal-dialog modal-sm modal-dialog-centered';
+        modalDialog.role = "document";
+
+        var modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+
+        var modalHeader = document.createElement('div');
+        modalHeader.className = 'modal-header';
+
+        var modalTitle = document.createElement('h5');
+        modalTitle.className = 'modal-title text-success';
+        modalTitle.innerHTML = 'SUCCESS';
+
+        var modalBody = document.createElement('div');
+        modalBody.className = 'modal-body';
+        modalBody.innerHTML = `<div>
+            <span class="fw-bolder">Your issue raised successfully.</span><br/>
+            To track the status and progress of the this issue you need this unique Ticket No. in below.</div> <div class='text-primary fw-bold text-center'> ${ticket_number}</div><small> Please note this ticket no. or take a screenshot</small> `;
+
+        var modalFooter = document.createElement('div');
+        modalFooter.className = 'modal-footer justify-content-center';
+
+        var closeButton2 = document.createElement('button');
+        closeButton2.type = 'button';
+        closeButton2.className = 'btn btn-secondary btn-sm';
+        closeButton2.setAttribute('data-bs-dismiss', 'modal');
+        closeButton2.innerHTML = 'Close';
+
+        modalHeader.appendChild(modalTitle);
+
+        modalFooter.appendChild(closeButton2);
+
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalBody);
+        modalContent.appendChild(modalFooter);
+
+        modalDialog.appendChild(modalContent);
+
+        modal.appendChild(modalDialog);
+
+        document.body.appendChild(modal);
+
+        $('#ticket_modal').modal('show');
+    }
+
+    function validateForm() {
+        const name = document.forms["issue_form"]["name"];
+        const phone = document.forms["issue_form"]["phone"];
+        const email = document.forms["issue_form"]["email"];
+        const designation = document.forms["issue_form"]["designation"];
+        const organization = document.forms["issue_form"]["organization"];
+        const issue_type = document.forms["issue_form"]["issue_type"];
+        const location = document.forms["issue_form"]["location"];
+        const description = document.forms["issue_form"]["description"];
+
+        if (name.value == "") {
+            name.focus()
+            return false;
+        }
+        if (phone.value == "") {
+            phone.focus()
+            return false;
+        }
+        if (designation.value == "") {
+            designation.focus()
+            return false;
+        }
+        if (organization.value == "") {
+            organization.focus()
+            return false;
+        }
+        if (issue_type.value == "") {
+            issue_type.focus()
+            return false;
+        }
+        if (location.value == "") {
+            location.focus()
+            return false;
+        }
+        if (description.value == "") {
+            description.focus()
+            return false;
+        }
+        const form_data = {
+            name: name.value.trim(),
+            email: email.value.trim(),
+            phone: phone.value.trim(),
+            designation: designation.value.trim(),
+            organization: organization.value.trim(),
+            issue_type: issue_type.value.trim(),
+            location: location.value.trim(),
+            description: description.value.trim()
+        }
+        RaisedIssue(form_data).then((resp) => {
+            if (resp.success) {
+                createModal(resp.ticket_number)
+                const form = document.getElementById('issue_form')
+                form.classList.remove('was-validated')
+                form.reset();
+            } else {
+                createErrorAlert(resp.message)
+            }
+            return false; // JSON data parsed by `data.json()` call
+        });
+    }
+
+    async function RaisedIssue(data = {}) {
+        // Default options are marked with *
+        const url = "{% url 'raised_issue' %}";
+        const response = await fetch(url, {
+            method: "POST",
+            // mode: "cors", // no-cors, *cors, same-origin
+            // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+            // redirect: "follow", // manual, *follow, error
+            // referrerPolicy: "no-referrer",  // redirect: "follow", // manual, *follow, error
+            // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+</script>
+
+{% endblock customjs %}

@@ -1,0 +1,146 @@
+{% extends 'MainApp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row"  style="margin-bottom: 18rem !important;"> 
+    <div class="col-md-3"></div>
+    <div class="col-md-6 mt-5">
+        <div class="card mb-3">
+            <h5 class="card-header">
+                {% if issue %}
+                <span class="fw-bold me-2">
+                    <a href='{{ticket_status}}'>
+                        <i class='bx bx-arrow-back text-primary me-1'></i>
+                    </a>
+                    </span>
+                {%endif %}
+                Check Ticket Status</h5>
+            <hr class="my-0" />
+            <div class="card-body">
+                {% include 'alert_msg.html'%}
+                {% if issue %}
+                <div class="px-md-5">
+                  <ul class="timeline timeline-dashed mt-3">
+                      <li class="timeline-item timeline-item-secondary mb-3">
+                        <span class="timeline-indicator timeline-indicator-secondary">
+                          <i class="bx bx-paint"></i>
+                        </span>
+                        <div class="timeline-event">
+                          <div class="timeline-header mb-sm-0 mb-3">
+                            <h5 class="mb-0">Ticket Raised</h5>
+                            <small class="text-muted">{{issue.created_at}}</small>
+                          </div>
+                            <ul>
+                              <li><small>Ticket No.</small> : {{issue.ticket_no}}</li>
+                                <li>
+                                    <small>Ticket Status</small> :
+                                    <span
+                                      class="badge rounded-pill
+                                      {%if issue.status == 'Unassigned' %}bg-label-secondary
+                                      {% elif issue.status == 'Assigned' %}bg-label-primary
+                                      {% elif issue.status == 'Completed' %}bg-label-success
+                                      {%else%}bg-label-danger{%endif%}"
+                                    >{{issue.status}}</span>
+                                  </li>
+                                  <li>
+                                    <small>Ticket Type</small> :
+                                    <span class="fw-semibold text-primary"
+                                      >{{issue.issue_type}}</span>
+                                  </li>
+                                <li><small>Description</small> : {{issue.description}}</li>
+                                <li><small>Location</small> : {{issue.location}}</li>
+                            </ul>
+                            <div class="divider text-start-center">
+                              <div class="divider-text fw-bold">Employee Details</div>
+                            </div>
+                            <ul>
+                              <li><small>Name</small> : {{issue.emp_name}}</li>
+                              <li><small>Phone</small> : {{issue.emp_phone}}</li>
+                              {%if issue.emp_email %}
+                              <li><small>Email</small> : {{issue.emp_email}}</li>
+                              {% endif %}
+                              <li>
+                                <small>Designation</small> : {{issue.emp_designation}}
+                              </li>
+                              <li>
+                                <small>Organization</small> : {{issue.emp_organization}}
+                              </li>
+                            </ul>
+                        </div>
+                      </li>
+                        {% if issue.assign_name and issue.assign_phone %}
+                        <li class="timeline-item timeline-item-info mb-3">
+                          <span class="timeline-indicator timeline-indicator-info">
+                            <i class="bx bx-user-check"></i>
+                          </span>
+                        <div class="timeline-event">
+                          <div class="timeline-header mb-sm-0 mb-3">
+                            <h5 class="mb-0">Ticket Assigned</h5>
+                            <small class="text-muted">{{issue.assigned_date}}</small>
+                          </div>
+                            <ul>
+                              <li><small>Name</small> : {{issue.assign_name}}</li>
+                              <li><small>Phone</small> : {{issue.assign_phone}}</li>
+                            </ul>
+                        </div>
+                      </li>
+                      {% endif %}
+
+                      {% if issue.status == "Completed" %}
+                        <li class="timeline-item timeline-item-success mb-3">
+                          <span class="timeline-indicator timeline-indicator-success">
+                            <i class="bx bx-badge-check"></i>
+                          </span>
+                        <div class="timeline-event">
+                          <div class="timeline-header mb-sm-0 mb-3">
+                            <h5 class="mb-0">Ticket Resolved</h5>
+                            <small class="text-muted">{{issue.resolved_date}}</small>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="timeline-end-indicator">
+                        <i class="bx bx-check-circle"></i>
+                      </li>
+                      {% endif %}
+
+                      {% if issue.status == "Rejected" %}
+                        <li class="timeline-item timeline-item-danger mb-3">
+                          <span class="timeline-indicator timeline-indicator-danger">
+                            <i class="bx bx-x-circle"></i>
+                          </span>
+                        <div class="timeline-event">
+                          <div class="timeline-header mb-sm-0 mb-3">
+                            <h5 class="mb-0">Ticket Rejected</h5>
+                            <small class="text-muted">{{issue.rejected_date}}</small>
+                          </div>
+                            <ul>
+                              <li><small>Reason</small> : {{issue.rejected_reason}}</li>
+                            </ul>
+                        </div>
+                      </li>
+                      <li class="timeline-end-indicator">
+                        <i class="bx bx-info-circle"></i>
+                      </li>
+                      {% endif %}
+                    </ul>
+              </div>
+
+                {% else %}
+                <form id="formAccountSettings" method="GET" action="{% url 'ticket_status'%}">
+                    <div class="mb-3">
+                        <label class="form-label" for="ticket_number">Ticket Number</label>
+                        <input type="text" id="ticket_number" value="{{ticket_number}}" name="ticket_number"
+                            class="form-control" placeholder="Enter Ticket Number" />
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary me-2">Check Status</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            <!-- /Account -->
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+{% endblock content %}
